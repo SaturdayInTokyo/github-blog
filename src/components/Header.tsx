@@ -1,5 +1,7 @@
-export function Header(){
+import headerBackground from "../assets/header-background.svg"
+
+export function Header() {
   return (
-    <h1>Header</h1>
+    <img className="w-full" src={headerBackground} alt="" />
   )
 }
