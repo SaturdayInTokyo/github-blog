@@ -6,4 +6,8 @@
   html {
     font-family: Nunito, system-ui, sans-serif
   }
+  
+  body {
+    @apply bg-base-background text-base-text
+  }
 }
