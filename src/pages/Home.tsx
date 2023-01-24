@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { api } from "../lib/axios"
 import githubIcon from '../assets/icons/githubIcon.svg'
 import companyIcon from '../assets/icons/companyIcon.svg'
 import followersIcon from '../assets/icons/followersIcon.svg'
 import arrowIcon from '../assets/icons/arrowIcon.svg'
 import { PostCard } from "../components/PostCard"
+import { PostsContext } from "../context/PostsContext"
 
-
-
-interface userProps {
+interface UserProps {
   name: string
   bio: string
   login: string
@@ -19,8 +18,12 @@ interface userProps {
 }
 
 
+
+
 export function Home() {
-  const [userData, setUserData] = useState({} as userProps)
+  const [userData, setUserData] = useState({} as UserProps)
+
+  const { posts } = useContext(PostsContext)
 
   useEffect(() => {
     api
@@ -65,7 +68,7 @@ export function Home() {
       <div className="mb-12">
         <header className="flex justify-between items-center mb-3">
           <span className="font-bold text-lg text-base-subtitle">Publicações</span>
-          <span className="text-sm text-base-span">0 publicações</span>
+          <span className="text-sm text-base-span">{posts.total_count} publicações</span>
         </header>
         <input
           type="text"
@@ -74,7 +77,9 @@ export function Home() {
         />
       </div>
       <section className="grid grid-cols-2 gap-8 last-of-type:mb-8">
-        <PostCard />
+        {posts.items?.map(item => (
+          <PostCard key={item.number} {...item} />
+        ))}
       </section>
     </div>
 
