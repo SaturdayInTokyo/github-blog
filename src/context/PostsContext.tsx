@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState, useCallback } from "react";
 import { api } from "../lib/axios";
 
 interface PostsProviderProps {
@@ -11,25 +11,36 @@ export function PostsProvider({ children }: PostsProviderProps) {
 
   const [posts, setPosts] = useState({})
 
-  const query = "Boas Práticas"
+  const fetchPosts = useCallback(async (query?: string) => {
+    const response = await api.get('/search/issues', {
+      params: {
+        q: query + "repo:saturdayintokyo/github-blog"
+      },
+    })
+
+    setPosts(response.data)
+  }, [])
+
+  const showPosts = useCallback(async () => {
+    const response = await api.get('/search/issues', {
+      params: {
+        q: "repo:saturdayintokyo/github-blog"
+      },
+    })
+
+    setPosts(response.data)
+  }, [])
 
   useEffect(() => {
-    api
-      .get('/search/issues', {
-        params: {
-          q: query + "repo:saturdayintokyo/github-blog"
-        }
-      })
-      .then((res) => setPosts(res.data))
-      .catch((err) => {
-        console.error('An error occurred: ' + err)
-      })
+    showPosts()
   }, [])
+
 
   return (
     <PostsContext.Provider
       value={{
-        posts
+        posts,
+        fetchPosts
       }}
     >
       {children}
