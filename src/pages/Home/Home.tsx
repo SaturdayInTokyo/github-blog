@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react"
-import { api } from "../lib/axios"
-import githubIcon from '../assets/icons/githubIcon.svg'
-import companyIcon from '../assets/icons/companyIcon.svg'
-import followersIcon from '../assets/icons/followersIcon.svg'
-import arrowIcon from '../assets/icons/arrowIcon.svg'
-import { PostCard } from "../components/PostCard"
-import { PostsContext } from "../context/PostsContext"
+import { api } from "../../lib/axios"
+import githubIcon from '../../assets/icons/githubIcon.svg'
+import companyIcon from '../../assets/icons/companyIcon.svg'
+import followersIcon from '../../assets/icons/followersIcon.svg'
+import arrowIcon from '../../assets/icons/arrowIcon.svg'
+import { PostCard } from "../../components/PostCard"
+import { PostsContext } from "../../context/PostsContext"
+import { SearchFormComponent } from "./SearchForm"
 
 interface UserProps {
   name: string
@@ -16,9 +17,6 @@ interface UserProps {
   followers: number
   html_url: string
 }
-
-
-
 
 export function Home() {
   const [userData, setUserData] = useState({} as UserProps)
@@ -70,11 +68,7 @@ export function Home() {
           <span className="font-bold text-lg text-base-subtitle">Publicações</span>
           <span className="text-sm text-base-span">{posts.total_count} publicações</span>
         </header>
-        <input
-          type="text"
-          placeholder="Buscar conteúdo"
-          className="w-full py-3 px-4 rounded-md placeholder:text-base-label bg-base-input border border-base-border focus:outline focus:outline-blue"
-        />
+        <SearchFormComponent />
       </div>
       <section className="grid grid-cols-2 gap-8 last-of-type:mb-8">
         {posts.items?.map(item => (
