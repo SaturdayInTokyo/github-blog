@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import { api } from "../../lib/axios"
-import githubIcon from '../../assets/icons/githubIcon.svg'
-import companyIcon from '../../assets/icons/companyIcon.svg'
-import followersIcon from '../../assets/icons/followersIcon.svg'
-import arrowIcon from '../../assets/icons/arrowIcon.svg'
+
+import { FaGithub } from 'react-icons/fa'
+import { FaBuilding } from 'react-icons/fa'
+import { FaUserFriends } from 'react-icons/fa'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+
 import { PostCard } from "../../components/PostCard"
 import { PostsContext } from "../../context/PostsContext"
 import { SearchFormComponent } from "./SearchForm"
@@ -43,21 +45,21 @@ export function Home() {
             <h1 className="text-2xl font-bold text-base-title">{userData.name}</h1>
             <a className="font-bold flex items-center gap-2 text-blue hover:underline decoration-2" target="_blank" href={userData.html_url}>
               GITHUB
-              <img className="w-4" src={arrowIcon} alt="" />
+              <FaExternalLinkAlt />
             </a>
           </header>
           <p className="mb-6">{userData.bio}</p>
           <div className="flex gap-6">
             <span className="flex items-center gap-2 text-base-subtitle">
-              <img className="w-5" src={githubIcon} alt="" />
+              <FaGithub size={18} className="text-base-label" />
               {userData.login}
             </span>
             <span className="flex items-center gap-2 text-base-subtitle">
-              <img className="w-5" src={companyIcon} alt="" />
+              <FaBuilding size={18} className="text-base-label" />
               {userData.company}
             </span>
             <span className="flex items-center gap-2 text-base-subtitle">
-              <img className="w-5" src={followersIcon} alt="" />
+              <FaUserFriends size={18} className="text-base-label"/>
               {userData.followers} seguidores
             </span>
           </div>

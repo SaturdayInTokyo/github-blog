@@ -14,7 +14,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
   const fetchPosts = useCallback(async (query?: string) => {
     const response = await api.get('/search/issues', {
       params: {
-        q: query + "repo:saturdayintokyo/github-blog"
+        q:query + "is:issue repo:saturdayintokyo/github-blog/issues"
       },
     })
 
@@ -24,11 +24,12 @@ export function PostsProvider({ children }: PostsProviderProps) {
   const showPosts = useCallback(async () => {
     const response = await api.get('/search/issues', {
       params: {
-        q: "repo:saturdayintokyo/github-blog"
+        q:"is:issue repo:saturdayintokyo/github-blog/issues"
       },
     })
 
     setPosts(response.data)
+    console.log(response.data)
   }, [])
 
   useEffect(() => {
