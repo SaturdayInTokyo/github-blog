@@ -3,7 +3,6 @@ import { useContext} from 'react'
 import { PostsContext } from '../../context/PostsContext'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { memo } from 'react'
 
 const searchFormSchema = z.object({
   query: z.string(),
