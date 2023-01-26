@@ -29,7 +29,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
     })
 
     setPosts(response.data)
-    console.log(response.data)
   }, [])
 
   useEffect(() => {
