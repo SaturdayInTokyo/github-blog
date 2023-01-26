@@ -12,7 +12,6 @@ export function Post() {
       {posts.items?.filter(item => item.number == number).map((item) => (
         <FullPost key={item.number} {...item} />
       ))}
-
     </div>
   )
 }

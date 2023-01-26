@@ -2,6 +2,9 @@ import { FaCalendarDay, FaChevronLeft, FaComment, FaExternalLinkAlt, FaGithub } 
 import { NavLink } from "react-router-dom"
 import ReactMarkdown from 'react-markdown'
 
+import { format, formatDistanceToNow, parseISO } from 'date-fns'
+import ptBR from "date-fns/esm/locale/pt-BR/index.js";
+
 interface PostProps {
   html_url: string,
   title: string,
@@ -10,9 +13,18 @@ interface PostProps {
   },
   comments: string,
   body: string,
+  created_at: string
 }
 
-export function FullPost({ html_url, title, user, comments, body }: PostProps) {
+export function FullPost({ html_url, title, user, comments, body, created_at }: PostProps) {
+
+  const publishedDateFormat = format(parseISO(created_at), "MMMM dd 'às' HH:mm", {
+    locale: ptBR,
+  })
+  const publishedDateRelativeToNow = formatDistanceToNow(parseISO(created_at), {
+    addSuffix: true,
+    locale: ptBR,
+  })
 
   return (
     <div>
@@ -33,10 +45,14 @@ export function FullPost({ html_url, title, user, comments, body }: PostProps) {
             <FaGithub size={18} className="text-base-label" />
             {user.login}
           </span>
-          <span className="flex items-center gap-2 text-base-subtitle">
+          <time
+            className="flex items-center gap-2 text-base-subtitle"
+            title={publishedDateFormat}
+            dateTime={created_at}
+          >
             <FaCalendarDay size={18} className="text-base-label" />
-            Há 1 dia
-          </span>
+            {publishedDateRelativeToNow}
+          </time>
           <span className="flex items-center gap-2 text-base-subtitle">
             <FaComment size={18} className="text-base-label" />
             {comments} comentários
